@@ -1,12 +1,10 @@
 "use strict";
 // importing env data from config file
-const { env, sequelize, } = require("./config");
+const { env, sequelize } = require("./config");
 // importing routes
 const routes = require("./routes");
 
-const {
-  imageValidator
-} = require('./validators')
+const { imageValidator } = require("./validators");
 // importing sequelize file
 const seq = require("./config/sequelize");
 
@@ -17,7 +15,7 @@ const Vision = require("@hapi/vision");
 const HapiSwagger = require("hapi-swagger");
 const Pack = require("./package");
 // const SocketIO = require('socket.io');
-const HapiCors = require('hapi-cors');
+const HapiCors = require("hapi-cors");
 
 // const connectedUsers = {};
 // const { setIoInstance } = require('./socketIoInstance');
@@ -42,34 +40,34 @@ const init = async () => {
   const server = Hapi.server({
     port: env.PORT,
     // host: env.HOST,
-    host: '0.0.0.0',
+    host: "0.0.0.0",
     routes: {
       cors: true,
       validate: {
         failAction: async (request, h, err) => {
-          console.error('Errors: ', err);
+          console.error("Errors: ", err);
           throw err;
-        }
+        },
       },
       timeout: {
-          server: 60000, // 60 seconds
-          socket: 60000, // 60 seconds
+        server: 60000, // 60 seconds
+        socket: 60000, // 60 seconds
       },
-    }
+    },
   });
 
   // // Register Hapi CORS plugin
   await server.register({
     plugin: HapiCors,
     options: {
-      origins: ['*'], // Adjust as needed for your specific requirements
+      origins: ["*"], // Adjust as needed for your specific requirements
     },
   });
 
   // adding swagger dependencies
   const swaggerOptions = {
     info: {
-      title: "Chimmy Garments API Documentation",
+      title: "MADHU IT API DOCUMENTATION",
       version: Pack.version,
     },
     sortEndpoints: "ordered",
@@ -85,21 +83,21 @@ const init = async () => {
       options: swaggerOptions,
     },
   ]);
-  await server.register(require('hapi-response-time'));
+  await server.register(require("hapi-response-time"));
   server.route({
     method: "GET",
     path: "/uploads/{path}/{image}",
-    options: {  
+    options: {
       description: "Fetching static files.",
       // tags,
       validate: {
         // headers: headerValidator,
-        params: imageValidator
+        params: imageValidator,
       },
-      handler:  async (req, res) => {
+      handler: async (req, res) => {
         try {
-          const { image , path } = req.params;
-          console.log(image)
+          const { image, path } = req.params;
+          console.log(image);
           const filepath = `./uploads/${path}/${image}`;
           return res.file(filepath);
         } catch (error) {
@@ -111,16 +109,16 @@ const init = async () => {
             })
             .code(200);
         }
-      }
+      },
     },
-  })
+  });
 
   // starting the server
   await server.start();
   // registering the server with a prefix
   // so after base route we need to add /api and
   // then the route which needs to be accessed
-  
+
   await server.register(routes, {
     routes: {
       prefix: "/api",
@@ -151,4 +149,3 @@ process.on("unhandledRejection", (err) => {
 });
 
 init();
-

@@ -1,16 +1,16 @@
 {
-    "development": {
-        "username": "root",
-        "password": null,
-        "database": "idc",
-        "host": "127.0.0.1",
-        "dialect": "mysql"
-    },
-    "production": {
-        "username": "root",
-        "password": null,
-        "database": "idc",
-        "host": "127.0.0.1",
-        "dialect": "mysql"
-    }
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "madhuit",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "madhuit",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
 }
