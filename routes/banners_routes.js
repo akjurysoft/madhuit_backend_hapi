@@ -49,7 +49,7 @@ const banner_routes = [
   },
   {
     method: "PUT",
-    path: "/v1/banners/:id",
+    path: "/v1/banners",
     options: {
       description: "Edit banner by Admin.",
       tags,
@@ -69,13 +69,12 @@ const banner_routes = [
   },
   {
     method: "DELETE",
-    path: "/v1/banners/:id",
+    path: "/v1/banners",
     options: {
       description: "Delete banner by Admin.",
       tags,
       validate: {
         headers: headerValidator,
-        params: BannersValidators.delete_banner_params,
       },
       handler: BannerControllers.deleteBanner,
     },

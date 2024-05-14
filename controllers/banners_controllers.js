@@ -177,11 +177,14 @@ const deleteBanner = async (req, res) => {
     );
 
     const allowed_user = ["ADMIN"];
+    console.log(user.role, "role");
+    console.log(user.application, "application");
     if (
       allowed_user.includes(user.role) &&
       user.application === "Chimmi Garments"
     ) {
-      const { banner_id } = req.payload;
+      const { banner_id } = req.query;
+      console.log(banner_id);
 
       // Find the banner by ID
       const banner = await Banners.findOne({ where: { id: banner_id } });

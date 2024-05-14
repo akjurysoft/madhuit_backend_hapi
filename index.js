@@ -61,6 +61,7 @@ const init = async () => {
     plugin: HapiCors,
     options: {
       origins: ["*"], // Adjust as needed for your specific requirements
+      methods: ["POST, GET, OPTIONS, DELETE, PUT"],
     },
   });
 
